@@ -1,7 +1,7 @@
 import { Product } from "@/src/core/entities/Product";
 import { Card, Text } from "../ds";
 import { StyleSheet, Image, View } from "react-native";
-import { formatPrice } from "@/src/utils/formatPrice";
+import { formatCurrency } from "@/src/utils/formatCurrency";
 
 type ProductCardProps = Product & {
   onPress?: () => void;
@@ -25,7 +25,7 @@ export default function ProductCard({
             {title}
           </Text>
           <Text variant="body" style={styles.price}>
-            {formatPrice(price)}
+            {formatCurrency(price)}
           </Text>
         </View>
       </View>
