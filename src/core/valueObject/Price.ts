@@ -1,8 +1,10 @@
+import { formatCurrency } from "@/src/utils/formatCurrency";
+
 export class Price {
   constructor(private amount: number) {}
 
   getFormatted(): string {
-    return `$${this.amount.toFixed(2)}`;
+    return formatCurrency(this.amount);
   }
 
   getAmount(): number {

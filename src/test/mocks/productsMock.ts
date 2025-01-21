@@ -1,4 +1,5 @@
 import { Product } from "@/src/core/entities/Product";
+import { ProductMapper } from "@/src/core/mappers/ProductMapper";
 
 export const productsObjectMock = {
   products: [
@@ -10,6 +11,7 @@ export const productsObjectMock = {
       rating: 4.6,
       stock: 10,
       thumbnail: "thumbnail1",
+      category: "beauty",
     },
     {
       id: "2",
@@ -19,6 +21,7 @@ export const productsObjectMock = {
       rating: 4.7,
       stock: 20,
       thumbnail: "thumbnail2",
+      category: "beauty",
     },
     {
       id: "3",
@@ -28,6 +31,7 @@ export const productsObjectMock = {
       rating: 4.8,
       stock: 30,
       thumbnail: "thumbnail3",
+      category: "beauty",
     },
     {
       id: "4",
@@ -37,6 +41,7 @@ export const productsObjectMock = {
       rating: 4.9,
       stock: 2,
       thumbnail: "thumbnail4",
+      category: "beauty",
     },
     {
       id: "5",
@@ -46,6 +51,7 @@ export const productsObjectMock = {
       rating: 5,
       stock: 0,
       thumbnail: "thumbnail5",
+      category: "beauty",
     },
     {
       id: "6",
@@ -55,6 +61,7 @@ export const productsObjectMock = {
       rating: 4.5,
       stock: 60,
       thumbnail: "thumbnail6",
+      category: "beauty",
     },
     {
       id: "7",
@@ -64,6 +71,7 @@ export const productsObjectMock = {
       rating: 4.4,
       stock: 70,
       thumbnail: "thumbnail7",
+      category: "beauty",
     },
     {
       id: "8",
@@ -73,6 +81,7 @@ export const productsObjectMock = {
       rating: 4.3,
       stock: 80,
       thumbnail: "thumbnail8",
+      category: "beauty",
     },
     {
       id: "9",
@@ -82,6 +91,7 @@ export const productsObjectMock = {
       rating: 4.2,
       stock: 300,
       thumbnail: "thumbnail9",
+      category: "beauty",
     },
     {
       id: "10",
@@ -91,19 +101,11 @@ export const productsObjectMock = {
       rating: 4.1,
       stock: 5,
       thumbnail: "thumbnail10",
+      category: "beauty",
     },
   ],
 };
 
 export const productsMock: Product[] = productsObjectMock.products.map(
-  (product) =>
-    new Product(
-      product.id,
-      product.title,
-      product.price,
-      product.description,
-      product.rating,
-      product.stock,
-      product.thumbnail,
-    ),
+  ProductMapper.toDomain,
 );

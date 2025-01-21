@@ -21,11 +21,11 @@ describe("ProductRepository", () => {
 
   it("should get paginated products", async () => {
     const products = await productRepository.getPaginatedProducts(10, 0);
-    expect(products).toEqual(productsObjectMock.products);
+    expect(products).toEqual(productsMock);
   });
 
   it("should get a product by id", async () => {
     const product = await productRepository.getProductById("1");
-    expect(product).toEqual(productsObjectMock.products[0]);
+    expect(product).toEqual(productsMock[0]);
   });
 });

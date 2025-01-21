@@ -25,7 +25,7 @@ export default function ProductCard({
             {title}
           </Text>
           <Text variant="body" style={styles.price}>
-            {formatCurrency(price)}
+            {price.getFormatted()}
           </Text>
         </View>
       </View>

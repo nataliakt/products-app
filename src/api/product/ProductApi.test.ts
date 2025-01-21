@@ -1,19 +1,20 @@
+import { ProductMapper } from "@/src/core/mappers/ProductMapper";
 import { ProductApi } from "./ProductApi";
 
 describe("ProductApi", () => {
   let productApi: ProductApi;
 
   beforeEach(() => {
-    productApi = new ProductApi("id,title,price");
+    productApi = new ProductApi(ProductMapper.fields.join(","));
   });
 
   it("should fetch products", async () => {
     const result = await productApi.fetchPaginatedProducts(1, 0);
 
     expect(result.products.length).toBe(1);
-    expect(result.products[0]).toHaveProperty("id");
-    expect(result.products[0]).toHaveProperty("title");
-    expect(result.products[0]).toHaveProperty("price");
+    for (const property of ProductMapper.fields) {
+      expect(result.products[0]).toHaveProperty(property);
+    }
   });
 
   it("should fetch a product by id", async () => {
@@ -23,7 +24,9 @@ describe("ProductApi", () => {
     const product = await productApi.fetchProductById(id);
 
     expect(product.id).toBe(id);
-    expect(product).toHaveProperty("title");
-    expect(product).toHaveProperty("price");
+
+    for (const property of ProductMapper.fields) {
+      expect(product).toHaveProperty(property);
+    }
   });
 });
