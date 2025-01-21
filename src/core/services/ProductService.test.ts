@@ -1,4 +1,4 @@
-import { productsMock } from "@/src/tests/mocks/productsMock";
+import { productsMock } from "@/src/test/mocks/productsMock";
 import { IProductRepository } from "../repositories/product/IProductRepository";
 import { ProductService } from "./ProductService";
 

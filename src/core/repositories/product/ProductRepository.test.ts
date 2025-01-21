@@ -2,7 +2,7 @@ import { IProductApi } from "@/src/api/product/IProductApi";
 import {
   productsMock,
   productsObjectMock,
-} from "@/src/tests/mocks/productsMock";
+} from "@/src/test/mocks/productsMock";
 import { ProductRepository } from "./ProductRepository";
 
 describe("ProductRepository", () => {

@@ -14,7 +14,7 @@ export default function ProductCard({
   price,
 }: ProductCardProps) {
   return (
-    <Card onPress={onPress}>
+    <Card onPress={onPress} accessibilityRole="link">
       <View style={styles.card}>
         <View>
           <Image source={{ uri: thumbnail }} style={styles.image} />

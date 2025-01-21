@@ -1,13 +1,22 @@
-import { StyleSheet, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 
-type CardProps = {
+type CardProps = TouchableOpacityProps & {
   children: React.ReactNode;
   onPress?: VoidFunction;
 };
 
-export default function Card({ children, onPress }: CardProps) {
+export default function Card({ children, onPress, ...props }: CardProps) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.card}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.card}
+      disabled={!onPress}
+      {...props}
+    >
       {children}
     </TouchableOpacity>
   );
