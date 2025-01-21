@@ -1,7 +1,7 @@
-import { ProductService } from "../../core/services/ProductService";
+import { ProductService } from "../../core/services/product/ProductService";
 import { Product } from "../../core/entities/Product";
 import { IUseCase } from "../IUseCase";
-import { IProductService } from "@/src/core/services/IProductService";
+import { IProductService } from "@/src/core/services/product/IProductService";
 
 export class ProductList implements IUseCase<Product[]> {
   private productService: IProductService;

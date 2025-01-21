@@ -1,3 +1,4 @@
+import React from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -9,7 +10,7 @@ type CardProps = TouchableOpacityProps & {
   onPress?: VoidFunction;
 };
 
-export default function Card({ children, onPress, ...props }: CardProps) {
+function Card({ children, onPress, ...props }: CardProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -34,3 +35,5 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
 });
+
+export default React.memo(Card);

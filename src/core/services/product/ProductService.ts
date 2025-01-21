@@ -1,6 +1,6 @@
-import { IProductRepository } from "../repositories/product/IProductRepository";
-import { ProductRepository } from "../repositories/product/ProductRepository";
-import { Product } from "../entities/Product";
+import { IProductRepository } from "../../repositories/product/IProductRepository";
+import { ProductRepository } from "../../repositories/product/ProductRepository";
+import { Product } from "../../entities/Product";
 import { IProductService } from "./IProductService";
 
 export class ProductService implements IProductService {

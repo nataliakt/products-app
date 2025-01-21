@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import Card from ".";
-import Text from "../Text";
 import { View } from "react-native";
 
 describe("Text", () => {

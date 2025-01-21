@@ -4,6 +4,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { variants } from "./variants";
+import React from "react";
 
 type Variant = keyof typeof variants;
 
@@ -11,7 +12,7 @@ export type TextProps = RNTextProps & {
   variant: keyof typeof variants;
 };
 
-export default function Text({ variant, style, ...props }: TextProps) {
+function Text({ variant, style, ...props }: TextProps) {
   const styles = makeStyles(variant);
   return <RNText style={[style, styles.text]} {...props} />;
 }
@@ -22,3 +23,5 @@ const makeStyles = (variant: Variant) =>
       ...variants[variant],
     },
   });
+
+export default React.memo(Text);

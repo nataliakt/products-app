@@ -1,18 +1,13 @@
 import { Product } from "@/src/core/entities/Product";
 import { Card, Text } from "../ds";
 import { StyleSheet, Image, View } from "react-native";
-import { formatCurrency } from "@/src/utils/formatCurrency";
+import React from "react";
 
 type ProductCardProps = Product & {
   onPress?: () => void;
 };
 
-export default function ProductCard({
-  onPress,
-  thumbnail,
-  title,
-  price,
-}: ProductCardProps) {
+function ProductCard({ onPress, thumbnail, title, price }: ProductCardProps) {
   return (
     <Card onPress={onPress} accessibilityRole="link">
       <View style={styles.card}>
@@ -55,3 +50,5 @@ const styles = StyleSheet.create({
   },
   price: {},
 });
+
+export default React.memo(ProductCard);

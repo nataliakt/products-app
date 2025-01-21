@@ -1,5 +1,5 @@
 import { productsMock } from "@/src/test/mocks/productsMock";
-import { IProductRepository } from "../repositories/product/IProductRepository";
+import { IProductRepository } from "../../repositories/product/IProductRepository";
 import { ProductService } from "./ProductService";
 
 describe("ProductService", () => {

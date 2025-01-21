@@ -1,4 +1,4 @@
-import { Product } from "../entities/Product";
+import { Product } from "../../entities/Product";
 
 export interface IProductService {
   getPaginatedProducts(limit: number, page: number): Promise<Product[]>;

@@ -1,21 +1,22 @@
+import React from "react";
 import { FlatList, FlatListProps, StyleSheet } from "react-native";
 import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
 
-type SafeAreaLayoutProps<ItemT> = FlatListProps<ItemT> & {
+type ListLayoutProps<ItemT> = FlatListProps<ItemT> & {
   gap?: number;
 };
 
-export default function ListLayout<ItemT>({
+function ListLayout<ItemT>({
   gap,
   style,
   contentContainerStyle,
   ...props
-}: SafeAreaLayoutProps<ItemT>) {
+}: ListLayoutProps<ItemT>) {
   const insets = useSafeAreaInsets();
   const styles = makeStyles(insets);
 
   return (
-    <FlatList
+    <FlatList<ItemT>
       style={[styles.flatList, style]}
       contentContainerStyle={[styles.container, contentContainerStyle]}
       {...props}
@@ -35,3 +36,5 @@ const makeStyles = (insets: EdgeInsets) =>
       paddingBottom: insets.bottom,
     },
   });
+
+export default React.memo(ListLayout);
