@@ -1,17 +1,20 @@
 import Divider from "@/src/components/ds/Divider";
 import Select from "@/src/components/ds/Select";
 import { Category } from "@/src/core/entities/Category";
-import { useCategories } from "@/src/hooks/category/useCategories";
-import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
+import { useCategoryStore } from "@/src/stores/categoryStore";
+import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 
 export default function ProductListScreen() {
-  const { categories, error, loading } = useCategories();
+  const categories = useCategoryStore((state) => state.categories);
+  const toggleSelectedCategory = useCategoryStore(
+    (state) => state.toggleSelectedCategory,
+  );
 
   const RenderItem: ListRenderItem<Category> = ({ item }) => (
     <Select
       label={item.name}
-      checked
-      onPress={() => {}}
+      checked={item.selected}
+      onPress={() => toggleSelectedCategory(item.slug)}
       style={styles.category}
     />
   );
@@ -28,7 +31,8 @@ export default function ProductListScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   category: {
     paddingVertical: 20,

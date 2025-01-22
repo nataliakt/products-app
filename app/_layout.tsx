@@ -1,7 +1,10 @@
 import HeaderOptionsButton from "@/src/components/HeaderOptionsButton";
+import { useInitStores } from "@/src/hooks/useInitStores";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
+  useInitStores();
+
   return (
     <Stack>
       <Stack.Screen

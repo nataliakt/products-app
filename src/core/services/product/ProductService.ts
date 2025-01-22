@@ -3,10 +3,14 @@ import { ProductRepository } from "../../repositories/product/ProductRepository"
 import { Product } from "../../entities/Product";
 import { IProductService } from "./IProductService";
 
+const productRepositoryDefault = new ProductRepository();
+
 export class ProductService implements IProductService {
   private productRepository: IProductRepository;
 
-  constructor(productRepository: IProductRepository = new ProductRepository()) {
+  constructor(
+    productRepository: IProductRepository = productRepositoryDefault,
+  ) {
     this.productRepository = productRepository;
   }
 

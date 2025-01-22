@@ -1,3 +1,4 @@
+import { APIRequestError } from "../errors/APIRequestError";
 import { IProductApi } from "./IProductApi";
 
 export class ProductApi implements IProductApi {
@@ -8,7 +9,10 @@ export class ProductApi implements IProductApi {
     const url = `https://dummyjson.com/products/?limit=${limit}&skip=${skip}&select=${this.fields}`;
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error("Failed to load products");
+      throw new APIRequestError(
+        "FETCH_PRODUCTS_ERROR",
+        "Failed to fetch products",
+      );
     }
     const data = await response.json();
     return data;
@@ -18,7 +22,10 @@ export class ProductApi implements IProductApi {
     const url = `https://dummyjson.com/products/${id}/?select=${this.fields}`;
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error("Failed to load product");
+      throw new APIRequestError(
+        "FETCH_PRODUCT_ERROR",
+        "Failed to fetch product by id",
+      );
     }
     const data = await response.json();
     return data;

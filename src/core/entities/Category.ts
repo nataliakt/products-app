@@ -1,6 +1,8 @@
 export class Category {
+  public selected: boolean = false;
+
   constructor(
-    public slug: string,
-    public name: string,
+    public readonly slug: string,
+    public readonly name: string,
   ) {}
 }

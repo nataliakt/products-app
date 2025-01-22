@@ -3,11 +3,13 @@ import { CategoryRepository } from "../../repositories/category/CategoryReposito
 import { Category } from "../../entities/Category";
 import { ICategoryService } from "./ICategoryService";
 
+const categoryRepositoryDefault = new CategoryRepository();
+
 export class CategoryService implements ICategoryService {
   private categoryRepository: ICategoryRepository;
 
   constructor(
-    categoryRepository: ICategoryRepository = new CategoryRepository(),
+    categoryRepository: ICategoryRepository = categoryRepositoryDefault,
   ) {
     this.categoryRepository = categoryRepository;
   }
