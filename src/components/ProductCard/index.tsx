@@ -1,6 +1,6 @@
 import { Product } from "@/src/core/entities/Product";
 import { Card, Text } from "../ds";
-import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, View } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 
@@ -17,24 +17,22 @@ function ProductCard({
 }: ProductCardProps) {
   return (
     <Link push href={`/product/${id}`} asChild>
-      <TouchableOpacity>
-        <Card>
-          <View style={styles.card}>
-            <View>
-              <Image source={{ uri: thumbnail }} style={styles.image} />
-            </View>
+      <View>
+        <Card style={styles.card}>
+          <View>
+            <Image source={{ uri: thumbnail }} style={styles.image} />
+          </View>
 
-            <View style={styles.content}>
-              <Text variant="h3" style={styles.title}>
-                {title}
-              </Text>
-              <Text variant="body" style={styles.price}>
-                {price.getFormatted()}
-              </Text>
-            </View>
+          <View style={styles.content}>
+            <Text variant="h3" style={styles.title}>
+              {title}
+            </Text>
+            <Text variant="body" style={styles.price}>
+              {price.getFormatted()}
+            </Text>
           </View>
         </Card>
-      </TouchableOpacity>
+      </View>
     </Link>
   );
 }

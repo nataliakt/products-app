@@ -1,9 +1,14 @@
-import HeaderOptionsButton from "@/src/components/HeaderOptionsButton";
+import { Button } from "@/src/components/ds";
 import { useInitStores } from "@/src/hooks/useInitStores";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
+import useCategoryStore from "@/src/stores/categoryStore";
+import { Platform, View } from "react-native";
 
 export default function RootLayout() {
   useInitStores();
+
+  const clearSelectedCategories =
+    useCategoryStore.use.clearSelectedCategories();
 
   return (
     <Stack>
@@ -11,15 +16,34 @@ export default function RootLayout() {
         name="index"
         options={{
           title: "Products",
-          headerSearchBarOptions: {},
-          headerRight: () => <HeaderOptionsButton />,
         }}
       />
       <Stack.Screen
         name="categories/modal"
         options={{
-          title: "Filter by Category",
+          title: "Categories",
           presentation: "modal",
+          headerLeft:
+            Platform.OS === "ios"
+              ? () => (
+                  <Button
+                    title="Done"
+                    icon="check"
+                    size="small"
+                    onPress={() => router.back()}
+                  />
+                )
+              : undefined,
+          headerRight: () => (
+            <View style={{ flexDirection: "row", gap: 8 }}>
+              <Button
+                title="Clear Filter"
+                variant="danger"
+                size="small"
+                onPress={clearSelectedCategories}
+              />
+            </View>
+          ),
         }}
       />
       <Stack.Screen

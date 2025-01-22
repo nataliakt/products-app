@@ -1,40 +1,33 @@
-import { useState, useEffect, useCallback } from "react";
-import { ProductList } from "../../features/products/ProductList";
-import { Product } from "../../core/entities/Product";
-import { PAGINATION_LIMIT } from "../../constants/pagination";
-import { IUseCase } from "@/src/features/IUseCase";
+import useProductStore from "@/src/stores/productStore";
+import useCategoryStore from "@/src/stores/categoryStore";
+import { useMemo } from "react";
 
-const productListUseCase = new ProductList();
+export const useProducts = () => {
+  const products = useProductStore.use.products();
+  const loading = useProductStore.use.isLoading();
+  const error = useProductStore.use.error?.();
+  const fetchProducts = useProductStore.use.fetchProducts();
+  const fetchMoreProducts = useProductStore.use.fetchMoreProducts();
+  const isFetchingMore = useProductStore.use.isFetchingMore();
 
-export const useProducts = (
-  productList: IUseCase<Product[]> = productListUseCase,
-) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
-  const [refetching, setRefetching] = useState<boolean>(false);
+  const selectedCategories = useCategoryStore.use.selectedCategories();
 
-  const fetchProducts = useCallback(async () => {
-    try {
-      const data = await productList.execute(PAGINATION_LIMIT, 0);
-      setProducts(data);
-    } catch (err) {
-      console.log(err);
-      setError("Failed to load products");
-    } finally {
-      setLoading(false);
+  const filteredProducts = useMemo(() => {
+    if (selectedCategories.length === 0) {
+      return products;
     }
-  }, [productList]);
 
-  const refetchProducts = async () => {
-    setRefetching(true);
-    await fetchProducts();
-    setRefetching(false);
+    return products.filter((product) =>
+      selectedCategories.includes(product.category),
+    );
+  }, [products, selectedCategories]);
+
+  return {
+    products: filteredProducts,
+    loading,
+    error,
+    fetchProducts,
+    fetchMoreProducts,
+    isFetchingMore,
   };
-
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
-
-  return { products, loading, error, refetch: refetchProducts, refetching };
 };

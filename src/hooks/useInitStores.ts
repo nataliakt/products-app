@@ -1,10 +1,13 @@
 import { useEffect } from "react";
-import { useCategoryStore } from "../stores/categoryStore";
+import useCategoryStore from "../stores/categoryStore";
+import useProductStore from "../stores/productStore";
 
 export function useInitStores() {
-  const fetchCategories = useCategoryStore((state) => state.fetchCategories);
+  const fetchCategories = useCategoryStore.use.fetchCategories();
+  const fetchProducts = useProductStore.use.fetchProducts();
 
   useEffect(() => {
     fetchCategories();
-  }, [fetchCategories]);
+    fetchProducts();
+  }, [fetchCategories, fetchProducts]);
 }

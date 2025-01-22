@@ -55,7 +55,7 @@ export const variants = {
   },
   danger: {
     text: {
-      color: "black",
+      color: "white",
     },
     button: {
       backgroundColor: "#BB342F",

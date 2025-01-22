@@ -30,11 +30,10 @@ const makeStyles = (insets: EdgeInsets) =>
       flex: 1,
       paddingTop: 16,
       paddingHorizontal: 16,
-      paddingBottom: 24,
+      paddingBottom: insets.bottom,
     },
     container: {
       gap: 16,
-      paddingBottom: insets.bottom,
     },
   });
 

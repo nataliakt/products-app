@@ -10,11 +10,11 @@ type Variant = keyof typeof variants;
 type Size = keyof typeof sizes;
 
 type ButtonProps = {
-  title: string;
+  title?: string;
   variant?: Variant;
   size?: Size;
   onPress?: () => void;
-  rightIcon?: FontAwesomeName;
+  icon?: FontAwesomeName;
 };
 
 function Button({
@@ -22,18 +22,20 @@ function Button({
   variant = "primary",
   size = "medium",
   onPress,
-  rightIcon,
+  icon,
 }: ButtonProps) {
   const styles = makeStyles(variant, size);
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Text variant="body" style={styles.text}>
-        {title}
-      </Text>
-      {rightIcon ? (
+      {title ? (
+        <Text variant="body" style={styles.text}>
+          {title}
+        </Text>
+      ) : null}
+      {icon ? (
         <View>
-          <FontAwesome name={rightIcon} size={16} style={styles.text} />
+          <FontAwesome name={icon} size={16} style={styles.text} />
         </View>
       ) : null}
     </TouchableOpacity>
