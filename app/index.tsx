@@ -1,8 +1,9 @@
 import { Text } from "@/src/components/ds";
 import ListLayout from "@/src/components/ds/ListLayout";
 import ProductCard from "@/src/components/ProductCard";
+import { Product } from "@/src/core/entities/Product";
 import { useProducts } from "@/src/hooks/product/useProducts";
-import { Stack } from "expo-router";
+import { ListRenderItem } from "react-native";
 
 export default function ProductListScreen() {
   const { loading, products, error, refetch, refetching } = useProducts();
@@ -15,19 +16,17 @@ export default function ProductListScreen() {
     return <Text variant="body">Loading...</Text>;
   }
 
+  const ProductListRenderItem: ListRenderItem<Product> = ({ item }) => (
+    <ProductCard {...item} />
+  );
+
   return (
-    <>
-      <Stack.Screen
-        options={{
-          title: "Products",
-        }}
-      />
-      <ListLayout
-        data={products}
-        renderItem={({ item }) => <ProductCard {...item} />}
-        onRefresh={refetch}
-        refreshing={refetching}
-      />
-    </>
+    <ListLayout
+      data={products}
+      renderItem={ProductListRenderItem}
+      onRefresh={refetch}
+      refreshing={refetching}
+      contentInsetAdjustmentBehavior="automatic"
+    />
   );
 }

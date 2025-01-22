@@ -1,25 +1,15 @@
 import React from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 
-type CardProps = TouchableOpacityProps & {
+type CardProps = {
   children: React.ReactNode;
-  onPress?: VoidFunction;
 };
 
-function Card({ children, onPress, ...props }: CardProps) {
+function Card({ children, ...props }: CardProps) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={styles.card}
-      disabled={!onPress}
-      {...props}
-    >
+    <View style={styles.card} {...props}>
       {children}
-    </TouchableOpacity>
+    </View>
   );
 }
 

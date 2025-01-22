@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { render, screen } from "@testing-library/react-native";
 import Card from ".";
 import { View } from "react-native";
 
@@ -11,21 +11,5 @@ describe("Text", () => {
     );
 
     screen.getByTestId("children");
-  });
-
-  it("should render Card with onPress", () => {
-    const onPress = jest.fn();
-    render(
-      <Card onPress={onPress} accessibilityRole="link">
-        <View testID="children" />
-      </Card>,
-    );
-
-    screen.getByTestId("children");
-
-    const card = screen.getByRole("link");
-    fireEvent.press(card);
-
-    expect(onPress).toHaveBeenCalledTimes(1);
   });
 });

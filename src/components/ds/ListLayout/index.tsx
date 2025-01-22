@@ -28,8 +28,9 @@ const makeStyles = (insets: EdgeInsets) =>
   StyleSheet.create({
     flatList: {
       flex: 1,
-      paddingVertical: 24,
+      paddingTop: 16,
       paddingHorizontal: 16,
+      paddingBottom: 24,
     },
     container: {
       gap: 16,
