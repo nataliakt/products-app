@@ -1,7 +1,8 @@
 import Divider from "@/src/components/ds/Divider";
 import Select from "@/src/components/ds/Select";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
-import ErrorTemplate from "@/src/components/ErrorTemplate";
+import ErrorTemplate from "@/src/components/templates/ErrorTemplate";
+import LoadingTemplate from "@/src/components/templates/LoadingTemplate";
 import { Category } from "@/src/core/entities/Category";
 import useCategoryStore from "@/src/stores/categoryStore";
 import { useEffect } from "react";
@@ -9,6 +10,9 @@ import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 
 export default function ProductListScreen() {
   const fetchCategories = useCategoryStore.use.fetchCategories();
+  const isLoading = useCategoryStore.use.isLoading();
+  const error = useCategoryStore.use.error?.();
+
   const categories = useCategoryStore.use.categories();
   const toggleSelectedCategory = useCategoryStore.use.toggleSelectedCategory();
   const isCategorySelected = useCategoryStore.use.isCategorySelected();
@@ -17,6 +21,10 @@ export default function ProductListScreen() {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
+
+  if (isLoading) {
+    return <LoadingTemplate />;
+  }
 
   const RenderItem: ListRenderItem<Category> = ({ item }) => (
     <Select
@@ -29,6 +37,7 @@ export default function ProductListScreen() {
 
   return (
     <ErrorBoundary
+      hasError={!!error}
       fallback={
         <ErrorTemplate
           title="The categories could not be loaded"

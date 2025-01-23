@@ -1,39 +1,41 @@
 import { Product } from "@/src/core/entities/Product";
 import { Card, Text } from "../ds";
-import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import React from "react";
-import { Link } from "expo-router";
+import FastImage from "@d11/react-native-fast-image";
 
-type ProductCardProps = Product & {
-  onPress?: () => void;
+export type ProductCardProps = Product & {
+  onPress: (id: string) => void;
 };
 
 function ProductCard({
-  onPress,
   id,
+  onPress,
   thumbnail,
   title,
   price,
 }: ProductCardProps) {
   return (
-    <Link push href={`/product/${id}`} asChild>
-      <TouchableOpacity>
-        <Card style={styles.card}>
-          <View>
-            <Image source={{ uri: thumbnail }} style={styles.image} />
-          </View>
+    <TouchableOpacity onPress={() => onPress(id)}>
+      <Card style={styles.card}>
+        <View>
+          <FastImage
+            source={{ uri: thumbnail, priority: FastImage.priority.high }}
+            style={styles.image}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </View>
 
-          <View style={styles.content}>
-            <Text variant="h3" style={styles.title}>
-              {title}
-            </Text>
-            <Text variant="body" style={styles.price}>
-              {price.getFormatted()}
-            </Text>
-          </View>
-        </Card>
-      </TouchableOpacity>
-    </Link>
+        <View style={styles.content}>
+          <Text variant="h3" style={styles.title}>
+            {title}
+          </Text>
+          <Text variant="body" style={styles.price}>
+            {price.getFormatted()}
+          </Text>
+        </View>
+      </Card>
+    </TouchableOpacity>
   );
 }
 

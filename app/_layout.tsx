@@ -12,7 +12,7 @@ export default function RootLayout() {
     <ErrorBoundary>
       <Stack>
         <Stack.Screen
-          name="index"
+          name="(products)/index"
           options={{
             title: "Products",
           }}

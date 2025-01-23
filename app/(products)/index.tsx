@@ -1,7 +1,6 @@
-import { Text } from "@/src/components/ds";
 import ListLayout from "@/src/components/ds/ListLayout";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
-import ErrorTemplate from "@/src/components/ErrorTemplate";
+import ErrorTemplate from "@/src/components/templates/ErrorTemplate";
 import ProductCard from "@/src/components/ProductCard";
 import ProductsHeaderRight from "@/src/components/ProductsHeaderRight";
 import { Product } from "@/src/core/entities/Product";
@@ -9,6 +8,7 @@ import { SortOrder } from "@/src/core/enums/Sort";
 import { useProducts } from "@/src/hooks/product/useProducts";
 import { router, Stack } from "expo-router";
 import { ListRenderItem } from "react-native";
+import LoadingTemplate from "@/src/components/templates/LoadingTemplate";
 
 export default function ProductListScreen() {
   const {
@@ -22,21 +22,21 @@ export default function ProductListScreen() {
     sortOrder,
   } = useProducts();
 
-  if (error) {
-    return <Text variant="body">{error}</Text>;
-  }
-
   if (loading && products.length === 0) {
-    return <Text variant="body">Loading...</Text>;
+    return <LoadingTemplate />;
   }
-
-  const ProductListRenderItem: ListRenderItem<Product> = ({ item }) => (
-    <ProductCard {...item} />
-  );
 
   const handleFilter = () => {
     router.push("/categories/modal");
   };
+
+  const handleProductPress = (id: string) => {
+    router.push(`/product/${id}`);
+  };
+
+  const ProductListRenderItem: ListRenderItem<Product> = ({ item }) => (
+    <ProductCard {...item} onPress={handleProductPress} />
+  );
 
   return (
     <>
@@ -53,6 +53,7 @@ export default function ProductListScreen() {
         }}
       />
       <ErrorBoundary
+        hasError={!!error}
         fallback={
           <ErrorTemplate
             title="The products could not be loaded"
@@ -69,9 +70,6 @@ export default function ProductListScreen() {
           contentInsetAdjustmentBehavior="automatic"
           onEndReachedThreshold={0.5}
           onEndReached={fetchMoreProducts}
-          ListFooterComponent={
-            loading ? <Text variant="body">Loading...</Text> : null
-          }
         />
       </ErrorBoundary>
     </>

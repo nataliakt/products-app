@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import ErrorTemplate from "../ErrorTemplate";
+import ErrorTemplate from "../templates/ErrorTemplate";
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Button, Text } from "../ds";
+import { Button, Text } from "../../ds";
 import React from "react";
 import { DEFAULT_ERROR_MESSAGE } from "@/src/constants/error";
 

@@ -2,10 +2,11 @@ import { Text } from "@/src/components/ds";
 import Divider from "@/src/components/ds/Divider";
 import { useProduct } from "@/src/hooks/product/useProduct";
 import { useLocalSearchParams } from "expo-router";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
-import ErrorTemplate from "@/src/components/ErrorTemplate";
+import ErrorTemplate from "@/src/components/templates/ErrorTemplate";
+import FastImage from "@d11/react-native-fast-image";
 
 type ProductScreenParams = {
   id: string;
@@ -30,7 +31,14 @@ export default function ProductScreen() {
       }
     >
       <ScrollView style={styles.container}>
-        <Image source={{ uri: product?.images[0] }} style={styles.image} />
+        <FastImage
+          source={{
+            uri: product?.images[0],
+            priority: FastImage.priority.high,
+          }}
+          style={styles.image}
+          resizeMode={FastImage.resizeMode.contain}
+        />
         <Divider />
         <View style={styles.info}>
           <Text variant="h1" style={styles.title}>
