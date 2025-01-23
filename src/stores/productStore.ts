@@ -60,8 +60,6 @@ const useProductStore = create<ProductStore>((set, get) => {
           get().sortOrder,
         );
 
-        console.log("update products");
-
         set({ products, lastFetched: now, currentPage });
       } catch (error) {
         set({

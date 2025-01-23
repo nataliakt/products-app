@@ -6,6 +6,7 @@ export const sizes = {
     button: {
       paddingVertical: 12,
       paddingHorizontal: 16,
+      gap: 8,
     },
   },
   medium: {

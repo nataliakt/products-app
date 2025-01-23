@@ -1,5 +1,7 @@
 import { Text } from "@/src/components/ds";
 import ListLayout from "@/src/components/ds/ListLayout";
+import ErrorBoundary from "@/src/components/ErrorBoundary";
+import ErrorTemplate from "@/src/components/ErrorTemplate";
 import ProductCard from "@/src/components/ProductCard";
 import ProductsHeaderRight from "@/src/components/ProductsHeaderRight";
 import { Product } from "@/src/core/entities/Product";
@@ -50,18 +52,28 @@ export default function ProductListScreen() {
           ),
         }}
       />
-      <ListLayout
-        data={products}
-        renderItem={ProductListRenderItem}
-        onRefresh={fetchProducts}
-        refreshing={loading}
-        contentInsetAdjustmentBehavior="automatic"
-        onEndReachedThreshold={0.5}
-        onEndReached={fetchMoreProducts}
-        ListFooterComponent={
-          loading ? <Text variant="body">Loading...</Text> : null
+      <ErrorBoundary
+        fallback={
+          <ErrorTemplate
+            title="The products could not be loaded"
+            button="Try Again"
+            reload={fetchProducts}
+          />
         }
-      />
+      >
+        <ListLayout
+          data={products}
+          renderItem={ProductListRenderItem}
+          onRefresh={fetchProducts}
+          refreshing={loading}
+          contentInsetAdjustmentBehavior="automatic"
+          onEndReachedThreshold={0.5}
+          onEndReached={fetchMoreProducts}
+          ListFooterComponent={
+            loading ? <Text variant="body">Loading...</Text> : null
+          }
+        />
+      </ErrorBoundary>
     </>
   );
 }

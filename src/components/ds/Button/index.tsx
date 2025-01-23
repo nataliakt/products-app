@@ -45,13 +45,13 @@ function Button({
 const makeStyles = (variant: Variant, size: Size) =>
   StyleSheet.create({
     button: {
-      ...variants[variant].button,
-      ...sizes[size].button,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
       gap: 4,
       borderRadius: 8,
+      ...variants[variant].button,
+      ...sizes[size].button,
     },
     text: {
       ...variants[variant].text,

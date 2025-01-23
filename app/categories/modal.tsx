@@ -1,5 +1,7 @@
 import Divider from "@/src/components/ds/Divider";
 import Select from "@/src/components/ds/Select";
+import ErrorBoundary from "@/src/components/ErrorBoundary";
+import ErrorTemplate from "@/src/components/ErrorTemplate";
 import { Category } from "@/src/core/entities/Category";
 import useCategoryStore from "@/src/stores/categoryStore";
 import { useEffect } from "react";
@@ -26,12 +28,22 @@ export default function ProductListScreen() {
   );
 
   return (
-    <FlatList
-      data={categories}
-      renderItem={RenderItem}
-      ItemSeparatorComponent={Divider}
-      contentContainerStyle={styles.container}
-    />
+    <ErrorBoundary
+      fallback={
+        <ErrorTemplate
+          title="The categories could not be loaded"
+          button="Try Again"
+          reload={fetchCategories}
+        />
+      }
+    >
+      <FlatList
+        data={categories}
+        renderItem={RenderItem}
+        ItemSeparatorComponent={Divider}
+        contentContainerStyle={styles.container}
+      />
+    </ErrorBoundary>
   );
 }
 

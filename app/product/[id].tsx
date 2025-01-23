@@ -4,6 +4,8 @@ import { useProduct } from "@/src/hooks/product/useProduct";
 import { useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import ErrorBoundary from "@/src/components/ErrorBoundary";
+import ErrorTemplate from "@/src/components/ErrorTemplate";
 
 type ProductScreenParams = {
   id: string;
@@ -11,32 +13,42 @@ type ProductScreenParams = {
 
 export default function ProductScreen() {
   const { id } = useLocalSearchParams<ProductScreenParams>();
-  const { product, loading } = useProduct(id);
+  const { product, loading, fetchProduct } = useProduct(id);
 
   if (loading) {
     return <Text variant="body">Loading...</Text>;
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Image source={{ uri: product?.images[0] }} style={styles.image} />
-      <Divider />
-      <View style={styles.info}>
-        <Text variant="h1" style={styles.title}>
-          {product?.title}
-        </Text>
-        <Text variant="h2" style={styles.price}>
-          {product?.price.getFormatted()}
-        </Text>
-        <Text variant="body">{product?.description}</Text>
-        <Text variant="bodyBold">
-          Rating: {product?.rating}{" "}
-          <AntDesign name="star" size={16} color="black" />
-        </Text>
-        <Text variant="body">Stock: {product?.stock}</Text>
-        <Text variant="body">Category: {product?.category}</Text>
-      </View>
-    </ScrollView>
+    <ErrorBoundary
+      fallback={
+        <ErrorTemplate
+          title="This product could not be loaded"
+          button="Try Again"
+          reload={fetchProduct}
+        />
+      }
+    >
+      <ScrollView style={styles.container}>
+        <Image source={{ uri: product?.images[0] }} style={styles.image} />
+        <Divider />
+        <View style={styles.info}>
+          <Text variant="h1" style={styles.title}>
+            {product?.title}
+          </Text>
+          <Text variant="h2" style={styles.price}>
+            {product?.price.getFormatted()}
+          </Text>
+          <Text variant="body">{product?.description}</Text>
+          <Text variant="bodyBold">
+            Rating: {product?.rating}{" "}
+            <AntDesign name="star" size={16} color="black" />
+          </Text>
+          <Text variant="body">Stock: {product?.stock}</Text>
+          <Text variant="body">Category: {product?.category}</Text>
+        </View>
+      </ScrollView>
+    </ErrorBoundary>
   );
 }
 
