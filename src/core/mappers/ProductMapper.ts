@@ -11,6 +11,7 @@ export class ProductMapper {
     "stock",
     "thumbnail",
     "category",
+    "images",
   ];
 
   static toDomain(raw: any): Product {
@@ -23,6 +24,7 @@ export class ProductMapper {
       raw.stock,
       raw.thumbnail,
       raw.category,
+      raw.images,
     );
   }
 }

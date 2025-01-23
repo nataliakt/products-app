@@ -10,5 +10,6 @@ export class Product {
     public stock: number,
     public thumbnail: string,
     public category: string,
+    public images: string[],
   ) {}
 }
