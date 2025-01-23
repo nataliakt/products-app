@@ -4,7 +4,7 @@ import React from "react";
 import { variants, sizes } from "./variants";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-type FontAwesomeName = keyof typeof FontAwesome.glyphMap;
+export type ButtonIcon = keyof typeof FontAwesome.glyphMap;
 
 type Variant = keyof typeof variants;
 type Size = keyof typeof sizes;
@@ -14,7 +14,7 @@ type ButtonProps = {
   variant?: Variant;
   size?: Size;
   onPress?: () => void;
-  icon?: FontAwesomeName;
+  icon?: ButtonIcon;
 };
 
 function Button({

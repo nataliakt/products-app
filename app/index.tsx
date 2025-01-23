@@ -3,13 +3,22 @@ import ListLayout from "@/src/components/ds/ListLayout";
 import ProductCard from "@/src/components/ProductCard";
 import ProductsHeaderRight from "@/src/components/ProductsHeaderRight";
 import { Product } from "@/src/core/entities/Product";
+import { SortOrder } from "@/src/core/enums/Sort";
 import { useProducts } from "@/src/hooks/product/useProducts";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import { ListRenderItem } from "react-native";
 
 export default function ProductListScreen() {
-  const { loading, products, error, fetchProducts, fetchMoreProducts } =
-    useProducts();
+  const {
+    loading,
+    products,
+    error,
+    fetchProducts,
+    fetchMoreProducts,
+    sortBy,
+    onPressSort,
+    sortOrder,
+  } = useProducts();
 
   if (error) {
     return <Text variant="body">{error}</Text>;
@@ -23,11 +32,22 @@ export default function ProductListScreen() {
     <ProductCard {...item} />
   );
 
+  const handleFilter = () => {
+    router.push("/categories/modal");
+  };
+
   return (
     <>
       <Stack.Screen
         options={{
-          headerRight: () => <ProductsHeaderRight />,
+          headerRight: () => (
+            <ProductsHeaderRight
+              onPressFilter={handleFilter}
+              sortBy={sortBy}
+              onPressSort={onPressSort}
+              sortIcon={sortOrder === SortOrder.asc ? "arrow-up" : "arrow-down"}
+            />
+          ),
         }}
       />
       <ListLayout

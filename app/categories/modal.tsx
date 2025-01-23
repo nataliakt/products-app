@@ -2,13 +2,19 @@ import Divider from "@/src/components/ds/Divider";
 import Select from "@/src/components/ds/Select";
 import { Category } from "@/src/core/entities/Category";
 import useCategoryStore from "@/src/stores/categoryStore";
+import { useEffect } from "react";
 import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 
 export default function ProductListScreen() {
+  const fetchCategories = useCategoryStore.use.fetchCategories();
   const categories = useCategoryStore.use.categories();
   const toggleSelectedCategory = useCategoryStore.use.toggleSelectedCategory();
   const isCategorySelected = useCategoryStore.use.isCategorySelected();
   useCategoryStore.use.selectedCategories(); // Update screen when selected categories change
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   const RenderItem: ListRenderItem<Category> = ({ item }) => (
     <Select

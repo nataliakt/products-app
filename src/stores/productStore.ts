@@ -5,6 +5,7 @@ import { ProductList } from "../features/products/ProductList";
 import { Product } from "../core/entities/Product";
 import { PAGINATION_LIMIT } from "../constants/pagination";
 import { createSelectors } from "./WithSelectors";
+import { SortBy, SortOrder } from "../core/enums/Sort";
 
 const productListUseCase = new ProductList();
 
@@ -12,12 +13,18 @@ type ProductStore = {
   isLoading: boolean;
   isFetchingMore: boolean;
   error?: string;
+
+  products: Product[];
   lastFetched?: number;
   currentPage: number;
 
-  products: Product[];
-  fetchProducts: () => void;
+  sortBy: SortBy;
+  sortOrder: SortOrder;
+
+  fetchProducts: (skipCache?: boolean) => void;
   fetchMoreProducts: () => void;
+
+  updateSort: (sortBy: SortBy, sortOrder: SortOrder) => void;
 };
 
 const useProductStore = create<ProductStore>((set, get) => {
@@ -25,18 +32,23 @@ const useProductStore = create<ProductStore>((set, get) => {
     isLoading: false,
     isFetchingMore: false,
     error: undefined,
+
+    products: [],
     lastFetched: undefined,
     currentPage: 0,
 
-    products: [],
-    fetchProducts: async () => {
+    sortBy: SortBy.rating,
+    sortOrder: SortOrder.desc,
+
+    fetchProducts: async (skipCache: boolean = false) => {
       const loading = get().isLoading || get().isFetchingMore;
       if (loading) return;
 
       const now = Date.now();
       const lastFetched = get().lastFetched;
 
-      if (lastFetched && now - lastFetched < PRODUCTS_CACHE_TIME) return;
+      if (!skipCache && lastFetched && now - lastFetched < PRODUCTS_CACHE_TIME)
+        return;
 
       const currentPage = 0;
       set({ isLoading: true, error: undefined });
@@ -44,7 +56,11 @@ const useProductStore = create<ProductStore>((set, get) => {
         const products = await productListUseCase.execute(
           PAGINATION_LIMIT,
           currentPage,
+          get().sortBy,
+          get().sortOrder,
         );
+
+        console.log("update products");
 
         set({ products, lastFetched: now, currentPage });
       } catch (error) {
@@ -68,6 +84,8 @@ const useProductStore = create<ProductStore>((set, get) => {
         const products = await productListUseCase.execute(
           PAGINATION_LIMIT,
           currentPage,
+          get().sortBy,
+          get().sortOrder,
         );
 
         set({ products: [...currentProducts, ...products], currentPage });
@@ -78,6 +96,12 @@ const useProductStore = create<ProductStore>((set, get) => {
       } finally {
         set({ isFetchingMore: false });
       }
+    },
+
+    updateSort: (sortBy, sortOrder) => {
+      set({ sortBy, sortOrder });
+
+      get().fetchProducts(true);
     },
   };
 });

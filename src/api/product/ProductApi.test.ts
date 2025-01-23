@@ -9,7 +9,12 @@ describe("ProductApi", () => {
   });
 
   it("should fetch products", async () => {
-    const result = await productApi.fetchPaginatedProducts(1, 0);
+    const result = await productApi.fetchPaginatedProducts(
+      1,
+      0,
+      "rating",
+      "desc",
+    );
 
     expect(result.products.length).toBe(1);
     for (const property of ProductMapper.fields) {
@@ -18,7 +23,12 @@ describe("ProductApi", () => {
   });
 
   it("should fetch a product by id", async () => {
-    const result = await productApi.fetchPaginatedProducts(1, 0);
+    const result = await productApi.fetchPaginatedProducts(
+      1,
+      0,
+      "rating",
+      "desc",
+    );
 
     const id = result.products[0].id;
     const product = await productApi.fetchProductById(id);

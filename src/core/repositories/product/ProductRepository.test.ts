@@ -20,7 +20,12 @@ describe("ProductRepository", () => {
   });
 
   it("should get paginated products", async () => {
-    const products = await productRepository.getPaginatedProducts(10, 0);
+    const products = await productRepository.getPaginatedProducts(
+      10,
+      0,
+      "rating",
+      "desc",
+    );
     expect(products).toEqual(productsMock);
   });
 

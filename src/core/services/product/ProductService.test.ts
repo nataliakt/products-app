@@ -15,15 +15,13 @@ describe("ProductService", () => {
   });
 
   it("should get paginated products", async () => {
-    const products = await productService.getPaginatedProducts(10, 0);
-    expect(products).toEqual(productsMock);
-  });
-
-  it("should get paginated products in stock", async () => {
-    const products = await productService.getPaginatedProductsInStock(10, 0);
-    expect(products).toEqual(
-      productsMock.filter((product) => product.stock > 0),
+    const products = await productService.getPaginatedProducts(
+      10,
+      0,
+      "rating",
+      "desc",
     );
+    expect(products).toEqual(productsMock);
   });
 
   it("should get a product by id", async () => {

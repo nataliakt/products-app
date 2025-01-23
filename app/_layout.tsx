@@ -1,12 +1,9 @@
 import { Button } from "@/src/components/ds";
-import { useInitStores } from "@/src/hooks/useInitStores";
 import { router, Stack } from "expo-router";
 import useCategoryStore from "@/src/stores/categoryStore";
 import { Platform, View } from "react-native";
 
 export default function RootLayout() {
-  useInitStores();
-
   const clearSelectedCategories =
     useCategoryStore.use.clearSelectedCategories();
 

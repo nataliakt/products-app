@@ -1,25 +1,25 @@
 import { renderHook } from "@testing-library/react-hooks";
 import { useProducts } from "./useProducts";
-import { IUseCase } from "@/src/features/IUseCase";
-import { Product } from "@/src/core/entities/Product";
-import { productsMock } from "@/src/test/mocks/productsMock";
+import { productsMock as mockProducts } from "@/src/test/mocks/productsMock";
+
+jest.mock("@/src/stores/productStore", () => ({
+  use: {
+    products: jest.fn(() => mockProducts),
+    isLoading: jest.fn(() => false),
+    error: jest.fn(() => null),
+    fetchProducts: () => jest.fn(),
+    fetchMoreProducts: jest.fn(),
+    isFetchingMore: jest.fn(() => false),
+    updateSort: jest.fn(),
+    sortBy: jest.fn(() => "price"),
+    sortOrder: jest.fn(() => "asc"),
+  },
+}));
 
 describe("useProducts", () => {
-  let productListUseCase: IUseCase<Product[]>;
-
-  beforeEach(() => {
-    productListUseCase = {
-      execute: jest.fn().mockResolvedValue(productsMock),
-    };
-  });
-
   it("should get all products", async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useProducts(productListUseCase),
-    );
+    const { result } = renderHook(() => useProducts());
 
-    await waitForNextUpdate();
-
-    expect(result.current.products).toEqual(productsMock);
+    expect(result.current.products).toEqual(mockProducts);
   });
 });

@@ -2,6 +2,7 @@ import { IProductRepository } from "../../repositories/product/IProductRepositor
 import { ProductRepository } from "../../repositories/product/ProductRepository";
 import { Product } from "../../entities/Product";
 import { IProductService } from "./IProductService";
+import { SortBy, SortOrder } from "../../enums/Sort";
 
 const productRepositoryDefault = new ProductRepository();
 
@@ -14,17 +15,18 @@ export class ProductService implements IProductService {
     this.productRepository = productRepository;
   }
 
-  async getPaginatedProducts(limit: number, page: number): Promise<Product[]> {
-    return await this.productRepository.getPaginatedProducts(limit, page);
-  }
-
-  async getPaginatedProductsInStock(
+  async getPaginatedProducts(
     limit: number,
     page: number,
+    sortBy: SortBy,
+    sortOrder: SortOrder,
   ): Promise<Product[]> {
-    return (
-      await this.productRepository.getPaginatedProducts(limit, page)
-    ).filter((product) => product.stock > 0);
+    return await this.productRepository.getPaginatedProducts(
+      limit,
+      page,
+      sortBy,
+      sortOrder,
+    );
   }
 
   async getProductById(id: string): Promise<Product> {

@@ -4,9 +4,15 @@ import { IProductApi } from "./IProductApi";
 export class ProductApi implements IProductApi {
   constructor(private fields: string) {}
 
-  public async fetchPaginatedProducts(limit: number, page: number) {
+  public async fetchPaginatedProducts(
+    limit: number,
+    page: number,
+    sortBy: string,
+    sortOrder: string,
+  ) {
     const skip = limit * page;
-    const url = `https://dummyjson.com/products/?limit=${limit}&skip=${skip}&select=${this.fields}`;
+    const url = `https://dummyjson.com/products/?limit=${limit}&skip=${skip}&select=${this.fields}&sortBy=${sortBy}&order=${sortOrder}`;
+    console.log(url);
     const response = await fetch(url);
     if (!response.ok) {
       throw new APIRequestError(

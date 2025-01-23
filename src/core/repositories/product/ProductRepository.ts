@@ -3,6 +3,7 @@ import { Product } from "../../entities/Product";
 import { IProductApi } from "@/src/api/product/IProductApi";
 import { ProductApi } from "@/src/api/product/ProductApi";
 import { ProductMapper } from "../../mappers/ProductMapper";
+import { SortBy, SortOrder } from "../../enums/Sort";
 
 export class ProductRepository implements IProductRepository {
   private productApi: IProductApi;
@@ -13,10 +14,17 @@ export class ProductRepository implements IProductRepository {
     this.productApi = productApi;
   }
 
-  async getPaginatedProducts(limit: number, page: number): Promise<Product[]> {
+  async getPaginatedProducts(
+    limit: number,
+    page: number,
+    sortBy: SortBy,
+    sortOrder: SortOrder,
+  ): Promise<Product[]> {
     const apiResponse = await this.productApi.fetchPaginatedProducts(
       limit,
       page,
+      sortBy,
+      sortOrder,
     );
 
     const products = apiResponse.products.map(ProductMapper.toDomain);
