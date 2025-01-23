@@ -12,7 +12,6 @@ export class ProductApi implements IProductApi {
   ) {
     const skip = limit * page;
     const url = `https://dummyjson.com/products/?limit=${limit}&skip=${skip}&select=${this.fields}&sortBy=${sortBy}&order=${sortOrder}`;
-    console.log(url);
     const response = await fetch(url);
     if (!response.ok) {
       throw new APIRequestError(

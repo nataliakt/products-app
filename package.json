@@ -14,7 +14,7 @@
   "jest": {
     "preset": "jest-expo",
     "setupFiles": [
-      "./src/test/jestSetup.ts"
+      "./src/test/jestSetup.tsx"
     ]
   },
   "dependencies": {

@@ -7,3 +7,5 @@ jest.mock("react-native-safe-area-context", () => ({
     left: 0,
   }),
 }));
+
+jest.mock("expo-font");
