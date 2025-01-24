@@ -7,6 +7,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
 import ErrorTemplate from "@/src/components/templates/ErrorTemplate";
 import FastImage from "@d11/react-native-fast-image";
+import LoadingTemplate from "@/src/components/templates/LoadingTemplate";
 
 type ProductScreenParams = {
   id: string;
@@ -17,7 +18,7 @@ export default function ProductScreen() {
   const { product, loading, fetchProduct } = useProduct(id);
 
   if (loading) {
-    return <Text variant="body">Loading...</Text>;
+    return <LoadingTemplate />;
   }
 
   return (

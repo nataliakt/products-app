@@ -1,50 +1,121 @@
-# Welcome to your Expo app 👋
+# Products App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+This project is built using **Expo React Native Prebuild**, offering a robust foundation for mobile application development. It ensures compatibility with native modules while maintaining the simplicity of managed workflows.
 
-1. Install dependencies
+## Table of Contents
+
+- [Setup](#setup)
+- [Project Structure](#project-structure)
+- [Technical Decisions](#technical-decisions)
+
+---
+
+## Setup
+
+To set up the project locally:
+
+1. **Environment:**
+
+   - Install react native environment setup by following the instructions on the [React Native Documentation](https://reactnative.dev/docs/set-up-your-environment).
+   - This project was developed using Node.js v20.9.0 and Yarn v1.22.19.
+
+1. **Clone the repository:**
 
    ```bash
-   npm install
+   git clone https://github.com/nataliakt/products-app.git
+   cd products-app
    ```
 
-2. Start the app
+   Or download the project as a zip file and extract it.
+
+1. **Install dependencies:**
 
    ```bash
-    npx expo start
+   yarn
    ```
 
-In the output, you'll find options to open the app in a
+1. **Prebuild the project:**
+   Run the following command to generate native files for iOS and Android:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+   yarn prebuild
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+1. **Run the app:**
+   For Android:
+   ```bash
+   yarn android
+   ```
+   For iOS:
+   ```bash
+   yarn ios
+   ```
+   Or use the Expo Go app for development:
+   ```bash
+   yarn start
+   ```
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## Project Structure
 
-```bash
-npm run reset-project
+The project is structured as follows:
+
+```
+app/                            # App navigation routes
+├── _layout.tsx                 # Global layout and main routes settings
+├── (product)/                  # Group folder to product list route
+│   └── index.tsx               # Product list screen
+├── categories/
+│   └── modal.tsx               # Modal to filter categories
+└── product/
+    └── [id].tsx                # Single product screen
+src/
+├── api/                        # API fetches
+├── assets/                     # Fonts and images
+├── components/                 # Reusable UI components
+│   └── ds/                     # Design system with basic components
+├── constants/                  # Global constant values
+├── core/                       # Common logics and abstractions
+│   └── entities                # Domain entities
+│   └── enums                   # Domain enums
+│   └── errors                  # Domain error classes
+│   └── mappers                 # Mappers to parse raw data from api to domain entities
+│   └── repositories            # Data source abstractions and perform mappers
+│   └── services                # Consumes API abstracted by repositories
+│   └── valueObject             # Value objects without identification key
+├── features/                   # Use cases
+├── hooks/                      # Custom React hooks
+├── stores/                     # State management with Zustand
+├── test/                       # Test configurations
+├── utils/                      # Utility functions
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## Technical Decisions
 
-To learn more about developing your project with Expo, look at the following resources:
+1. **Expo Prebuild:**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+   - Chosen for its balance of managed workflow simplicity and the flexibility to include custom native code when necessary.
 
-## Join the community
+2. **Expo router:**
 
-Join our community of developers creating universal apps.
+   - Used for seamless navigation between screens with support for stacks, tabs, and deep linking, enabling a better navigation experience.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+3. **Zustand:**
+
+   - Zustand was selected for its lightweight yet powerful approach to managing predictable and scalable application state.
+
+4. **TypeScript:**
+
+   - Enforced static typing across the project to enhance developer experience and minimize runtime errors.
+
+5. **Testing Framework:**
+
+   - Jest and Testing Library were included to provide robust unit and integration test coverage, ensuring code reliability and maintainability.
+
+6. **Styling:**
+   - React StyleSheets were used to maximize performance by reducing the number of components in the render tree and optimizing rendering.
