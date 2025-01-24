@@ -1,6 +1,6 @@
 import { Product } from "@/src/core/entities/Product";
 import { Card, Text } from "../ds";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import FastImage from "@d11/react-native-fast-image";
 
@@ -16,26 +16,24 @@ function ProductCard({
   price,
 }: ProductCardProps) {
   return (
-    <TouchableOpacity onPress={() => onPress(id)}>
-      <Card style={styles.card}>
-        <View>
-          <FastImage
-            source={{ uri: thumbnail, priority: FastImage.priority.high }}
-            style={styles.image}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        </View>
+    <Card style={styles.card} onPress={() => onPress(id)}>
+      <View>
+        <FastImage
+          source={{ uri: thumbnail, priority: FastImage.priority.high }}
+          style={styles.image}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </View>
 
-        <View style={styles.content}>
-          <Text variant="h3" style={styles.title}>
-            {title}
-          </Text>
-          <Text variant="body" style={styles.price}>
-            {price.getFormatted()}
-          </Text>
-        </View>
-      </Card>
-    </TouchableOpacity>
+      <View style={styles.content}>
+        <Text variant="h3" style={styles.title}>
+          {title}
+        </Text>
+        <Text variant="body" style={styles.price}>
+          {price.getFormatted()}
+        </Text>
+      </View>
+    </Card>
   );
 }
 
