@@ -1,13 +1,7 @@
-import { Button } from "@/src/components/ds";
-import { router, Stack } from "expo-router";
-import useCategoryStore from "@/src/stores/categoryStore";
-import { Platform, View } from "react-native";
+import { Stack } from "expo-router";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
 
 export default function RootLayout() {
-  const clearSelectedCategories =
-    useCategoryStore.use.clearSelectedCategories();
-
   return (
     <ErrorBoundary>
       <Stack>
@@ -22,27 +16,6 @@ export default function RootLayout() {
           options={{
             title: "Categories",
             presentation: "modal",
-            headerLeft:
-              Platform.OS === "ios"
-                ? () => (
-                    <Button
-                      title="Done"
-                      icon="check"
-                      size="small"
-                      onPress={() => router.back()}
-                    />
-                  )
-                : undefined,
-            headerRight: () => (
-              <View style={{ flexDirection: "row", gap: 8 }}>
-                <Button
-                  title="Clear Filter"
-                  variant="danger"
-                  size="small"
-                  onPress={clearSelectedCategories}
-                />
-              </View>
-            ),
           }}
         />
         <Stack.Screen

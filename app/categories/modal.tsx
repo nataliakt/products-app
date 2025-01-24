@@ -1,3 +1,7 @@
+import {
+  CategoriesHeaderLeft,
+  CategoriesHeaderRight,
+} from "@/src/components/CategoriesHeader";
 import Divider from "@/src/components/ds/Divider";
 import Select from "@/src/components/ds/Select";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
@@ -5,6 +9,7 @@ import ErrorTemplate from "@/src/components/templates/ErrorTemplate";
 import LoadingTemplate from "@/src/components/templates/LoadingTemplate";
 import { Category } from "@/src/core/entities/Category";
 import useCategoryStore from "@/src/stores/categoryStore";
+import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { FlatList, ListRenderItem, StyleSheet } from "react-native";
 
@@ -36,23 +41,31 @@ export default function ProductListScreen() {
   );
 
   return (
-    <ErrorBoundary
-      hasError={!!error}
-      fallback={
-        <ErrorTemplate
-          title="The categories could not be loaded"
-          button="Try Again"
-          reload={fetchCategories}
-        />
-      }
-    >
-      <FlatList
-        data={categories}
-        renderItem={RenderItem}
-        ItemSeparatorComponent={Divider}
-        contentContainerStyle={styles.container}
+    <>
+      <Stack.Screen
+        options={{
+          headerLeft: () => <CategoriesHeaderLeft />,
+          headerRight: () => <CategoriesHeaderRight />,
+        }}
       />
-    </ErrorBoundary>
+      <ErrorBoundary
+        hasError={!!error}
+        fallback={
+          <ErrorTemplate
+            title="The categories could not be loaded"
+            button="Try Again"
+            reload={fetchCategories}
+          />
+        }
+      >
+        <FlatList
+          data={categories}
+          renderItem={RenderItem}
+          ItemSeparatorComponent={Divider}
+          contentContainerStyle={styles.container}
+        />
+      </ErrorBoundary>
+    </>
   );
 }
 
