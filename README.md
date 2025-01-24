@@ -104,6 +104,11 @@ src/
 2. **Expo router:**
 
    - Used for seamless navigation between screens with support for stacks, tabs, and deep linking, enabling a better navigation experience.
+   - There is already a deep link available in the url `productsapp://product/:id` that opens the product. Open the url with the following command:
+     ```bash
+     npx uri-scheme open productsapp://product/1 --ios
+     npx uri-scheme open productsapp://product/1 --android
+     ```
 
 3. **Zustand:**
 
