@@ -75,5 +75,7 @@
     <string>Automatic</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>NSCalendarsUsageDescription</key>
+    <string>We need access to your calendar to add product purchase reminders.</string>
   </dict>
 </plist>
