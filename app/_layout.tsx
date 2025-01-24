@@ -1,5 +1,10 @@
 import { Stack } from "expo-router";
 import ErrorBoundary from "@/src/components/ErrorBoundary";
+import {
+  CategoriesHeaderLeft,
+  CategoriesHeaderRight,
+} from "@/src/components/CategoriesHeader";
+import { Platform } from "react-native";
 
 export default function RootLayout() {
   return (
@@ -16,6 +21,9 @@ export default function RootLayout() {
           options={{
             title: "Categories",
             presentation: "modal",
+            headerLeft:
+              Platform.OS === "ios" ? CategoriesHeaderLeft : undefined,
+            headerRight: CategoriesHeaderRight,
           }}
         />
         <Stack.Screen
